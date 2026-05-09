@@ -94,7 +94,6 @@ fi
 # Keep only the most recent CS2 coredump to avoid disk space being filled
 CORE_DUMP_DIR="/home/container/game/bin/linuxsteamrt64"
 if [ -d "${CORE_DUMP_DIR}" ]; then
-    echo "Deleting old coredumps"
     while IFS= read -r CORE_DUMP; do
         echo "Deleting old coredump: ${CORE_DUMP}"
         rm -f -- "${CORE_DUMP}"
@@ -102,6 +101,33 @@ if [ -d "${CORE_DUMP_DIR}" ]; then
         find "${CORE_DUMP_DIR}" -maxdepth 1 -type f -name 'core.*' -printf '%T@ %p\n' \
             | sort -nr \
             | awk 'NR > 1 { sub(/^[^ ]+ /, ""); print }'
+    )
+fi
+
+# Preserve the previous console.log before server startup deletes it
+CONSOLE_LOG_DIR="/home/container/game/csgo/addons/metamod"
+CONSOLE_LOG_FILE="${CONSOLE_LOG_DIR}/console.log"
+if [ -f "${CONSOLE_LOG_FILE}" ]; then
+    ROTATED_CONSOLE_LOG_FILE="${CONSOLE_LOG_DIR}/console.$(date +%Y%m%d).log"
+
+    if [ -f "${ROTATED_CONSOLE_LOG_FILE}" ]; then
+        cat "${CONSOLE_LOG_FILE}" >> "${ROTATED_CONSOLE_LOG_FILE}"
+        rm -f -- "${CONSOLE_LOG_FILE}"
+    else
+        mv -- "${CONSOLE_LOG_FILE}" "${ROTATED_CONSOLE_LOG_FILE}"
+    fi
+
+    echo "Archived console.log to ${ROTATED_CONSOLE_LOG_FILE}"
+fi
+
+if [ -d "${CONSOLE_LOG_DIR}" ]; then
+    while IFS= read -r OLD_CONSOLE_LOG; do
+        echo "Deleting old console log: ${OLD_CONSOLE_LOG}"
+        rm -f -- "${OLD_CONSOLE_LOG}"
+    done < <(
+        find "${CONSOLE_LOG_DIR}" -maxdepth 1 -type f -name 'console.*.log' -printf '%T@ %p\n' \
+            | sort -nr \
+            | awk 'NR > 5 { sub(/^[^ ]+ /, ""); print }'
     )
 fi
 
