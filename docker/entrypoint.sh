@@ -91,6 +91,20 @@ if [ -f "${GAMEINFO_FILE}" ]; then
     fi
 fi
 
+# Keep only the most recent CS2 coredump to avoid disk space being filled
+CORE_DUMP_DIR="/home/container/game/bin/linuxsteamrt64"
+if [ -d "${CORE_DUMP_DIR}" ]; then
+    echo "Deleting old coredumps"
+    while IFS= read -r CORE_DUMP; do
+        echo "Deleting old coredump: ${CORE_DUMP}"
+        rm -f -- "${CORE_DUMP}"
+    done < <(
+        find "${CORE_DUMP_DIR}" -maxdepth 1 -type f -name 'core.*' -printf '%T@ %p\n' \
+            | sort -nr \
+            | awk 'NR > 1 { sub(/^[^ ]+ /, ""); print }'
+    )
+fi
+
 # Replace Startup Variables
 MODIFIED_STARTUP=`eval echo $(echo ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g')`
 echo ":/home/container$ ${MODIFIED_STARTUP}"
