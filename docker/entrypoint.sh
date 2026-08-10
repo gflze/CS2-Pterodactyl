@@ -113,7 +113,7 @@ echo ":/home/container$ ${MODIFIED_STARTUP}"
 
 # Run the Server
 if [ ${LOAD_METAMOD:-0} -eq 1 ]; then
-    eval LD_PRELOAD="./libmetamod-loader.so" ${MODIFIED_STARTUP}
+    eval LD_PRELOAD="/home/container/game/libmetamod-loader.so" ${MODIFIED_STARTUP}
 else
     eval ${MODIFIED_STARTUP}
 fi
