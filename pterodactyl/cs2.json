@@ -85,6 +85,16 @@
             "field_type": "text"
         },
         {
+            "name": "Load Metamod",
+            "description": "Toggles injection of Metamod loader. Set to 0 to disable.",
+            "env_variable": "LOAD_METAMOD",
+            "default_value": "1",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|numeric",
+            "field_type": "text"
+        },
+        {
             "name": "Debugger",
             "description": "Environment variable passed to cs2.sh",
             "env_variable": "GAME_DEBUGGER",
