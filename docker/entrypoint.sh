@@ -71,7 +71,7 @@ fi
 # Credit: https://github.com/ghostcap-gaming/ACMRS-cs2-metamod-update-fix/blob/main/acmrs.sh
 GAMEINFO_FILE="/home/container/game/csgo/gameinfo.gi"
 GAMEINFO_ENTRY="			Game	csgo/addons/metamod"
-if [ -f "${GAMEINFO_FILE}" && ${LOAD_METAMOD:-0} -eq 1 ]; then
+if [ -f "${GAMEINFO_FILE}" ] && [ ${LOAD_METAMOD:-0} -eq 1 ]; then
     if grep -q "Game[[:blank:]]*csgo\/addons\/metamod" "$GAMEINFO_FILE"; then # match any whitespace
         echo "File gameinfo.gi already configured. No changes were made."
     else
