@@ -107,7 +107,7 @@ fi
 # Preserve the previous console.log before server startup deletes it
 if [ ${LOAD_METAMOD:-0} -eq 1 ]; then
     CONSOLE_LOG_DIR="/home/container/game/csgo/addons/metamod"
-    else
+else
     CONSOLE_LOG_DIR="/home/container/game/csgo"
 fi
 
