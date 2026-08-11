@@ -67,6 +67,30 @@ if [ ! -z ${SRCDS_APPID} ]; then
     fi
 fi
 
+# Edit /home/container/game/csgo/gameinfo.gi to add MetaMod path
+# Credit: https://github.com/ghostcap-gaming/ACMRS-cs2-metamod-update-fix/blob/main/acmrs.sh
+GAMEINFO_FILE="/home/container/game/csgo/gameinfo.gi"
+GAMEINFO_ENTRY="			Game	csgo/addons/metamod"
+if [ -f "${GAMEINFO_FILE}" && ${LOAD_METAMOD:-0} -eq 1 ]; then
+    if grep -q "Game[[:blank:]]*csgo\/addons\/metamod" "$GAMEINFO_FILE"; then # match any whitespace
+        echo "File gameinfo.gi already configured. No changes were made."
+    else
+        awk -v new_entry="$GAMEINFO_ENTRY" '
+            BEGIN { found=0; }
+            // {
+                if (found) {
+                    print new_entry;
+                    found=0;
+                }
+                print;
+            }
+            /Game_LowViolence/ { found=1; }
+        ' "$GAMEINFO_FILE" > "$GAMEINFO_FILE.tmp" && mv "$GAMEINFO_FILE.tmp" "$GAMEINFO_FILE"
+
+        echo "The file ${GAMEINFO_FILE} has been configured for MetaMod successfully."
+    fi
+fi
+
 # Keep only the most recent CS2 coredump to avoid disk space being filled
 CORE_DUMP_DIR="/home/container/game/bin/linuxsteamrt64"
 if [ -d "${CORE_DUMP_DIR}" ]; then
@@ -81,7 +105,12 @@ if [ -d "${CORE_DUMP_DIR}" ]; then
 fi
 
 # Preserve the previous console.log before server startup deletes it
-CONSOLE_LOG_DIR="/home/container/game/csgo"
+if [ ${LOAD_METAMOD:-0} -eq 1 ]; then
+    CONSOLE_LOG_DIR="/home/container/game/csgo/addons/metamod"
+    else
+    CONSOLE_LOG_DIR="/home/container/game/csgo"
+fi
+
 CONSOLE_LOG_FILE="${CONSOLE_LOG_DIR}/console.log"
 if [ -f "${CONSOLE_LOG_FILE}" ]; then
     ROTATED_CONSOLE_LOG_FILE="${CONSOLE_LOG_DIR}/console.$(date +%Y%m%d).log"
@@ -112,7 +141,7 @@ MODIFIED_STARTUP=`eval echo $(echo ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g'
 echo ":/home/container$ ${MODIFIED_STARTUP}"
 
 # Run the Server
-if [ ${LOAD_METAMOD:-0} -eq 1 ]; then
+if [ ${LOAD_METAMOD:-0} -eq 2 ]; then
     eval LD_PRELOAD="/home/container/game/libmetamod-loader.so" ${MODIFIED_STARTUP}
 else
     eval ${MODIFIED_STARTUP}

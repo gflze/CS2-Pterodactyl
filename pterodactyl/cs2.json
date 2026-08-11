@@ -86,7 +86,7 @@
         },
         {
             "name": "Load Metamod",
-            "description": "Toggles injection of Metamod loader. Set to 0 to disable.",
+            "description": "Toggles loading of Metamod. Set to 1 for gameinfo loading, 2 for loader inject.",
             "env_variable": "LOAD_METAMOD",
             "default_value": "1",
             "user_viewable": true,
