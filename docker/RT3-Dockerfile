@@ -1,7 +1,7 @@
 FROM        registry.gitlab.steamos.cloud/steamrt/sniper/platform:latest-container-runtime-depot
 LABEL       author="Vauff"
-LABEL       org.opencontainers.image.description SteamRT3 Platform image for Pterodactyl CSGO/CS2/Source engine servers. 
-LABEL       org.opencontainers.image.source="https://github.com/Vauff/CS2-Pterodactyl"
+LABEL       org.opencontainers.image.description="SteamRT3 Platform image for Pterodactyl CS2 servers."
+LABEL       org.opencontainers.image.source="https://github.com/gflze/CS2-Pterodactyl"
 
 # Prep OS
 RUN         mkdir -p /etc/sudoers.d && echo "%sudo ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/flatdeb && chmod 0440 /etc/sudoers.d/flatdeb

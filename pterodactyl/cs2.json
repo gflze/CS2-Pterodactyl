@@ -5,18 +5,18 @@
         "update_url": null
     },
     "exported_at": "2025-12-07T08:36:50-06:00",
-    "name": "Counter-Strike 2 (SteamRT3)",
+    "name": "Counter-Strike 2",
     "author": "gflze2@gmail.com",
-    "description": "Counter-Strike is a multiplayer first-person shooter video game developed by Valve. This image is based on Valve's Steam Runtime 3 platform (codenamed SNIPER) and was created to run both CSGO and CS2 without issues.",
+    "description": "Counter-Strike is a multiplayer first-person shooter video game developed by Valve.",
     "features": [
         "gsl_token",
         "steam_disk_space"
     ],
     "docker_images": {
-        "SteamRT3": "ghcr.io\/vauff\/cs2-pterodactyl:rt3",
-        "SteamRT3-Debug": "ghcr.io\/vauff\/cs2-pterodactyl:rt3debug",
-        "SteamRT4": "ghcr.io\/vauff\/cs2-pterodactyl:rt4",
-        "SteamRT4-Debug": "ghcr.io\/vauff\/cs2-pterodactyl:rt4debug"
+        "SteamRT3": "ghcr.io\/gflze\/cs2-pterodactyl:rt3",
+        "SteamRT3-Debug": "ghcr.io\/gflze\/cs2-pterodactyl:rt3debug",
+        "SteamRT4": "ghcr.io\/gflze\/cs2-pterodactyl:rt4",
+        "SteamRT4-Debug": "ghcr.io\/gflze\/cs2-pterodactyl:rt4debug"
     },
     "file_denylist": [],
     "startup": ".\/game\/cs2.sh -dedicated +ip 0.0.0.0 -port {{SERVER_PORT}} -maxplayers {{SRCDS_MAXPLAYERS}} {{EXTRA_ARGS}}",

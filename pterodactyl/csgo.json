@@ -5,19 +5,19 @@
         "update_url": null
     },
     "exported_at": "2026-03-04T20:58:32-06:00",
-    "name": "Counter-Strike: Global Offensive (SteamRT3)",
+    "name": "Counter-Strike: Global Offensive",
     "author": "gflze2@gmail.com",
-    "description": "Counter-Strike is a multiplayer first-person shooter video game developed by Valve. This image is based on Valve's Steam Runtime 3 platform (codenamed SNIPER) and was created to run both CSGO and CS2 without issues.",
+    "description": "Counter-Strike is a multiplayer first-person shooter video game developed by Valve.",
     "features": [
         "gsl_token",
         "steam_disk_space"
     ],
     "docker_images": {
-        "Ubuntu 22.04": "ghcr.io\/vauff\/cs2-pterodactyl:ubuntu2204",
-        "SteamRT3": "ghcr.io\/vauff\/cs2-pterodactyl:rt3",
-        "SteamRT3-Debug": "ghcr.io\/vauff\/cs2-pterodactyl:rt3debug",
-        "SteamRT4": "ghcr.io\/vauff\/cs2-pterodactyl:rt4",
-        "SteamRT4-Debug": "ghcr.io\/vauff\/cs2-pterodactyl:rt4debug"
+        "Ubuntu 22.04": "ghcr.io\/gflze\/cs2-pterodactyl:ubuntu2204",
+        "SteamRT3": "ghcr.io\/gflze\/cs2-pterodactyl:rt3",
+        "SteamRT3-Debug": "ghcr.io\/gflze\/cs2-pterodactyl:rt3debug",
+        "SteamRT4": "ghcr.io\/gflze\/cs2-pterodactyl:rt4",
+        "SteamRT4-Debug": "ghcr.io\/gflze\/cs2-pterodactyl:rt4debug"
     },
     "file_denylist": [],
     "startup": ".\/srcds_run -game csgo -console -port {{SERVER_PORT}} +ip {{SERVER_IP}} +map {{SRCDS_MAP}} +maxplayers {{SRCDS_MAXPLAYERS}} -maxplayers_override {{SRCDS_MAXPLAYERS}} -strictportbind -norestart {{EXTRA_ARGS}}",

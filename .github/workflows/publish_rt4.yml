@@ -1,5 +1,9 @@
 name: publish_rt4
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+  push:
+  schedule:
+    - cron: '0 0 1 * *'
 jobs:
   publish-docker-image:
     runs-on: ubuntu-latest
