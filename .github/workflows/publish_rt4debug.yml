@@ -18,5 +18,5 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build & Publish Docker image for rt4debug tag
         run: |
-              docker build . -t ghcr.io/vauff/cs2-pterodactyl:rt4debug -f docker/RT4Debug-Dockerfile
-              docker push ghcr.io/vauff/cs2-pterodactyl:rt4debug
+              docker build . -t ghcr.io/gflze/cs2-pterodactyl:rt4debug -f docker/RT4Debug-Dockerfile
+              docker push ghcr.io/gflze/cs2-pterodactyl:rt4debug

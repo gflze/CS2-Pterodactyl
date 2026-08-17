@@ -18,5 +18,5 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build & Publish Docker image for ubuntu2204 tag
         run: |
-              docker build . -t ghcr.io/vauff/cs2-pterodactyl:ubuntu2204 -f docker/Ubuntu2204-Dockerfile
-              docker push ghcr.io/vauff/cs2-pterodactyl:ubuntu2204
+              docker build . -t ghcr.io/gflze/cs2-pterodactyl:ubuntu2204 -f docker/Ubuntu2204-Dockerfile
+              docker push ghcr.io/gflze/cs2-pterodactyl:ubuntu2204
