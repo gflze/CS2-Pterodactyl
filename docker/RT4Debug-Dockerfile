@@ -6,11 +6,10 @@ LABEL       org.opencontainers.image.source="https://github.com/gflze/CS2-Pterod
 # Prep OS
 RUN         mkdir -p /etc/sudoers.d && echo "%sudo ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/flatdeb && chmod 0440 /etc/sudoers.d/flatdeb
 ENV         DEBIAN_FRONTEND=noninteractive
-# debian 13 refuses to load the llvm gpg key for some reason, just fallback to an older system clang for now..
-#RUN         echo "deb http://apt.llvm.org/trixie/ llvm-toolchain-trixie main" >> /etc/apt/sources.list.d/llvm.list
-#RUN         echo "deb-src http://apt.llvm.org/trixie/ llvm-toolchain-trixie main" >> /etc/apt/sources.list.d/llvm.list
-#RUN         wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | tee /etc/apt/trusted.gpg.d/apt.llvm.org.asc
-RUN         apt update && apt install -y iproute2 valgrind clang-tools-19 bind9-dnsutils && apt-get clean
+RUN         wget -O /etc/apt/keyrings/apt.llvm.org.asc https://apt.llvm.org/llvm-snapshot.gpg.key
+RUN         echo "deb [signed-by=/etc/apt/keyrings/apt.llvm.org.asc] http://apt.llvm.org/trixie/ llvm-toolchain-trixie-22 main" >> /etc/apt/sources.list.d/llvm.list
+RUN         echo "deb-src [signed-by=/etc/apt/keyrings/apt.llvm.org.asc] http://apt.llvm.org/trixie/ llvm-toolchain-trixie-22 main" >> /etc/apt/sources.list.d/llvm.list
+RUN         apt update && apt install -y iproute2 valgrind clang-tools-22 bind9-dnsutils && apt-get clean
 # this was needed to fix valgrind for some reason??
 RUN	        sudo apt install -y --reinstall libc6-dbg
 USER        container
